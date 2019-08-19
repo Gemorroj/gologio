@@ -1,0 +1,50 @@
+apache:
+  path: '/var/log/httpd/error_log'
+  format:
+    date: '/^\[(.*?)\]/'
+    type: '/\[(warn|error|debug|info|crit|emerg|notice|alert)\]/'
+    client: '/\] \[client ([0-9\.]*)\]/'
+    message: '/\]+\s+(?!\[)(.*)/'
+  cast:
+    date: '\DateTime'
+nginx:
+  path: '/var/log/nginx/error.log'
+  format:
+    date: '/(\d{4}\/\d{2}\/\d{2}\s\d{2}:\d{2}:\d{2}) /'
+    type: '/ \[([^]]*)\]/'
+    message: '/ [0-9]+#[0-9]+: ([^,]+)/'
+    client: '/ client: ([^,]+),/'
+    server: '/ server: ([^,]+),/'
+    request: '/ request: "([^"]+)",/'
+    host: '/ host: "([^"]+)"/'
+  cast:
+    date: '\DateTime'
+php_fpm:
+  path: 'tests/fixtures/php-fpm.log'
+  format:
+    date: '/^\[(.*?)\]/'
+    type: '/\] (ALERT|ERROR|WARNING|NOTICE|DEBUG): /'
+    pool: '/: \[pool (.+?)] /'
+    child: '/\] child ([0-9]+)/'
+    message: '/\] (?:ALERT|ERROR|WARNING|NOTICE|DEBUG): (?:\[pool [a-z]+\] ){0,1}(?:child [0-9]+(?:,){0,1} ){0,1}(.+)+/'
+  cast:
+    date: '\DateTime'
+php:
+  path: 'fixtures/php.log'
+  format:
+    date: '/^\[(.*?)\]/'
+    type: '/\] (.+):  /'
+    message: '/\] (?:.+):  (.+) in (?:.+)(?::| on line )[0-9]+/'
+    file: '/ in (.+)(?::| on line )[0-9]+/'
+    line: '/ in (?:.+)(?::| on line )([0-9]+)/'
+  cast:
+    date: '\DateTime'
+mysql:
+  path: '/var/log/mysql/mysql_error.log'
+  format:
+    date: '/^([0-9A-Z\.\-:]+) /'
+    thread: '/^(?:[0-9A-Z\.\-:]+) ([0-9]+) \[/'
+    type: '/(?:[0-9]+) \[(.+)\] /'
+    message: '/ (?:[0-9]+ \[.+\] ){0,1}(.+)+/'
+  cast:
+    date: '\DateTime'
