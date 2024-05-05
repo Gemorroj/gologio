@@ -5,7 +5,6 @@ import (
 	"errors"
 	"gopkg.in/yaml.v3"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -27,7 +26,7 @@ func Run(config Config, name string) (data <-chan string, err error) {
 	case "mysql" == name:
 		return readFile(config.Mysql.Path)
 	}
-	return nil, errors.New("Unknown name.")
+	return nil, errors.New("unknown name")
 }
 
 func readFile(path string) (data <-chan string, err error) {
@@ -55,7 +54,7 @@ func readFile(path string) (data <-chan string, err error) {
 }
 
 func readConfig(configPath string) []byte {
-	data, err := ioutil.ReadFile(configPath)
+	data, err := os.ReadFile(configPath)
 
 	if err != nil {
 		log.Fatalf("error: %v", err)
