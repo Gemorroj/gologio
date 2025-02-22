@@ -2,12 +2,16 @@
 
 
 #### Example
+```bash
+go get github.com/Gemorroj/gologio
+```
+
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/Gemorroj/gologio"
+	"gologio/gologio"
 	"log"
 )
 
