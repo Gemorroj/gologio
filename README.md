@@ -7,7 +7,7 @@ package main
 
 import (
 	"fmt"
-	"gologio/src"
+	"github.com/Gemorroj/gologio"
 	"log"
 )
 
